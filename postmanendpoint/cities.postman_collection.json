@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "a5dcd76d-e9ca-4590-8d55-da4b5d2b0a65",
+		"name": "cities",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32431133"
+	},
+	"item": [
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "travel.laravel/api/cities/2",
+					"host": [
+						"travel",
+						"laravel"
+					],
+					"path": [
+						"api",
+						"cities",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "city",
+							"value": "ggggg",
+							"type": "text"
+						},
+						{
+							"key": "country_id",
+							"value": "6",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "travel.laravel/api/cities",
+					"host": [
+						"travel",
+						"laravel"
+					],
+					"path": [
+						"api",
+						"cities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cities_by_country",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "city",
+							"value": "cffgg",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "travel.laravel/api/cities/5",
+					"host": [
+						"travel",
+						"laravel"
+					],
+					"path": [
+						"api",
+						"cities",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "9129e5f3-c1e0-4ed1-9022-09c0b7c49d12",
+		"name": "room_categories",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32431133"
+	},
+	"item": [
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "room_category",
+							"value": "siiiiittttttttttttttttttttt",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "travel.laravel/api/room_categories/3",
+					"host": [
+						"travel",
+						"laravel"
+					],
+					"path": [
+						"api",
+						"room_categories",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "show",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "travel.laravel/api/room_categories/2",
+					"host": [
+						"travel",
+						"laravel"
+					],
+					"path": [
+						"api",
+						"room_categories",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "travel.laravel/api/room_categories",
+					"host": [
+						"travel",
+						"laravel"
+					],
+					"path": [
+						"api",
+						"room_categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "room_category",
+							"value": "hhhhhh",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "travel.laravel/api/room_categories",
+					"host": [
+						"travel",
+						"laravel"
+					],
+					"path": [
+						"api",
+						"room_categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "room_category",
+							"value": "ghhhhhfdfvr",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "travel.laravel/api/room_categories/2",
+					"host": [
+						"travel",
+						"laravel"
+					],
+					"path": [
+						"api",
+						"room_categories",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

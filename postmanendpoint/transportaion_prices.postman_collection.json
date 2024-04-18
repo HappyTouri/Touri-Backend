@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "d4fb6f64-b0d2-4d0f-8d21-9a2ca03d9a5e",
+		"name": "transportaion_prices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32431133"
+	},
+	"item": [
+		{
+			"name": "by_country",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "travel.laravel/api/transportation_prices/uppp",
+					"host": [
+						"travel",
+						"laravel"
+					],
+					"path": [
+						"api",
+						"transportation_prices",
+						"uppp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "travel.laravel/api/transportation_prices/1",
+					"host": [
+						"travel",
+						"laravel"
+					],
+					"path": [
+						"api",
+						"transportation_prices",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "price",
+							"value": "100",
+							"type": "text"
+						},
+						{
+							"key": "country_id",
+							"value": "6",
+							"type": "text"
+						},
+						{
+							"key": "transportation_id",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "travel.laravel/api/transportation_prices",
+					"host": [
+						"travel",
+						"laravel"
+					],
+					"path": [
+						"api",
+						"transportation_prices"
+					],
+					"query": [
+						{
+							"key": "a",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "price",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "travel.laravel/api/transportation_prices/2",
+					"host": [
+						"travel",
+						"laravel"
+					],
+					"path": [
+						"api",
+						"transportation_prices",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
