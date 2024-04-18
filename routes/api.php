@@ -184,3 +184,4 @@ route::apiResource('hotel_reservations', HotelReservationController::class);
 route::apiResource('users', UserController::class);
 route::apiResource('r_room_categories', RRoomCategoryController::class);
 
+/// test
