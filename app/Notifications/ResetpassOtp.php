@@ -2,21 +2,31 @@
 
 namespace App\Notifications;
 
+use Ichtrojan\Otp\Otp;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ResetpassOtp extends Notification
+class ResetPassOTP extends Notification
 {
     use Queueable;
+    public $message;
+    public $subject;
+    public $fromEmail;
+    public $mailer;
+    private $otp;
 
     /**
      * Create a new notification instance.
      */
     public function __construct()
     {
-        //
+        $this->message = 'Use This Code for resetting your password';
+        $this->subject = 'RESET PASSWORD';
+        $this->fromEmail = "m.ayman1924@gmail.com";
+        $this->mailer = "smtp";
+        $this->otp = new Otp;
     }
 
     /**
@@ -34,10 +44,14 @@ class ResetpassOtp extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $otp = $this->otp->generate($notifiable->email,'numeric',6,15);
+
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        ->mailer('smtp')
+        ->subject($this->subject)
+        ->greeting('Hello ' .$notifiable->name)
+        ->line($this->message)
+        ->line('code : ' . $otp->token);
     }
 
     /**
