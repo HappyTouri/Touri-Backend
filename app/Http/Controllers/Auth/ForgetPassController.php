@@ -32,7 +32,7 @@ class ForgetPassController extends Controller
     public function resetPass(ResetPassRequest $request)
     {
         $otpe = $this->otp->validate($request->email , $request->otp);
-        dd($otpe);
+       
         if(!$otpe->status){
             return response(['error'=>$otpe],401);
         }

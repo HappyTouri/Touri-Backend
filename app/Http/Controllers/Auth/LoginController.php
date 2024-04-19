@@ -45,6 +45,17 @@ class LoginController extends Controller
 
 
     public function loadedUsers(){
+        try{
         $user=Auth::user();
+    
+    return response([
+        'message' => 'Hello ' .$user->name,
+       
+        'user' => $user,
+    ], 201);
+    } catch(\Exception $e){
+        return response(['message' => $e->getMessage()], 401);
+
     }
+}
 }
