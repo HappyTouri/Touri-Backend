@@ -107,7 +107,7 @@ class DatabaseSeeder extends Seeder
         ApartmentSeasonPrice::factory(5)->create();
         User::factory(20)->create();
         Offer::factory(20)->create();
-        Reservation::factory(20)->create();
+       
         PassportPhoto::factory(10)->create();
         TourDetail::factory(10)->create();
         HotelReservation::factory(10)->create();

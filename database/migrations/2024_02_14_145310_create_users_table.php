@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('mobile')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignIdFor(Rule::class)->constrained();
+            $table->string('role')->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

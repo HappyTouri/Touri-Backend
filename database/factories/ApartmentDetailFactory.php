@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Accommodation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,8 @@ class ApartmentDetailFactory extends Factory
     {
         return [
             'number_of_rooms'=>fake()->randomDigit(),
-            'number_of_peoples'=>fake()->randomDigit()
+            'number_of_peoples'=>fake()->randomDigit(),
+            'accommodation_id'=> Accommodation::all()->random()->id
         ];
     }
 }
