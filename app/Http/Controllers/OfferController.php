@@ -124,7 +124,7 @@ class OfferController extends Controller
     {
         try {
             $data = Offer::with(
-                'tour_details.r_room_categories.room_category',
+                'tour_details.r_room_categories.room_category.room_category',
                 'tour_details.tour.tour_photos',
                 'tour_details.tour.city',
                 'tour_details.accommodation.city',
@@ -135,6 +135,7 @@ class OfferController extends Controller
                 'tour_header',
                 'passports',
                 'airtickets',
+                'customer',
 
 
             )

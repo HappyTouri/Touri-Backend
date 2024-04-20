@@ -25,6 +25,7 @@ class Offer extends Model
         'profit_price',
         'tour_price',
         'note',
+        'reserved',
         'number_of_people',
         'driver_id',
         'tourguide_id',
@@ -70,5 +71,10 @@ class Offer extends Model
     function tour_header()
     {
         return $this->belongsTo(TourHeader::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'customer_id');
     }
 }

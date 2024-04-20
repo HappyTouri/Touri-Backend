@@ -17,7 +17,7 @@ class RRoomCategory extends Model
     ];
     function room_category()
     {
-        return $this->belongsTo(RoomCategory::class);
+        return $this->belongsTo(HotelRoomCategories::class);
     }
     function tour_detail()
     {
