@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+    protected $appends = ['unseenOffers'];
     function reservations()
     {
         // return $this->hasMany(Reservation::class);
@@ -23,6 +23,16 @@ class User extends Authenticatable
     function country()
     {
         return $this->belongsTo(Country::class);
+    }
+    public function getUnseenOffersAttribute()
+    {
+        if ($this->role == 'admin') {
+            return Offer::where('admin_seen_at', null)->get();
+        } elseif($this->role == 'operator') {
+            return Offer::where('operator_seen_at', null)->get();
+        }
+
+        return null; // Return null if the user is not an admin
     }
 
 
