@@ -50,8 +50,8 @@ class LoginController extends Controller
     
     return response([
         'message' => 'Hello ' .$user->name,
-       
         'user' => $user,
+        'role'=>$user->role
     ], 201);
     } catch(\Exception $e){
         return response(['message' => $e->getMessage()], 401);
