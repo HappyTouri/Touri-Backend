@@ -25,7 +25,7 @@ class RegisterController extends Controller
         try{
             $valid['password'] = Hash::make($valid['password']);
             $user = User::create($valid);
-            $user->notify(new SendOTP());
+            // $user->notify(new SendOTP());
             return response(['success'=>true , 'data' =>$user],201);
         } catch(\Exception $e){
             return response(['success'=>false , 'message' =>$e->getMessage()]);
