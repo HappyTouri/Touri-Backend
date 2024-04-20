@@ -27,10 +27,10 @@ class Driver extends Model
     {
         return $this->hasMany(DriverPhoto::class);
     }
-    function reservations()
-    {
-        return $this->hasMany(Reservation::class);
-    }
+    // function reservations()
+    // {
+    //     return $this->hasMany(Reservation::class);
+    // }
     function city()
     {
         return $this->belongsTo(City::class);
