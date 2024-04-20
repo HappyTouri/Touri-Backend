@@ -8,20 +8,23 @@ use App\Models\CarPhoto;
 use App\Http\Requests\StoreDriverRequest;
 use App\Http\Requests\UpdateDriverRequest;
 use Illuminate\Support\Facades\File;
+use App\Traits\CheckRole;
 
 class DriverController extends Controller
 {
+    use CheckRole;
     /**
      * Display a listing of the resource.
      */
     public function index_by_country($countryID)
-    {
-
+    { 
+        $this->checkRoleAndUser(['customer_sercvice' , 'driver' , 'tour_oprator' ,'user'],$countryID);
         try {
             $data = Driver::with('city.country', 'transportation', 'driver_photos', 'car_photos')->whereHas('city', function ($query) use ($countryID) {
                 $query->where('country_id', $countryID);
             })->get();
-            // dd($data);
+           
+            
             return $this->create_response(true, 'ok', $data);
 
         } catch (\Exception $e) {

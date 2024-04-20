@@ -9,6 +9,7 @@ use App\Models\RRoomCategory;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class OfferController extends Controller
 {
@@ -21,6 +22,7 @@ class OfferController extends Controller
     }
     public function index_by_country($countryID)
     {
+        $user = Auth::user();
         try {
             $data = Offer::with(
                 'tour_details.r_room_categories',
@@ -28,7 +30,20 @@ class OfferController extends Controller
                 'transportation',
                 'tour_header',
             )->where('country_id', $countryID)->get();
-
+                if($user->role == "admin"){
+                    foreach($data as $offer){
+                        $offer->refresh();
+                        $offer['admin_seen_at'] = Carbon::now();
+                        $offer->save();
+                    }
+                }
+                if($user->role == "tour_operator"){
+                    foreach($data as $offer){
+                        $offer->refresh();
+                        $offer['operator_seen_at'] = Carbon::now();
+                        $offer->save();
+                    }
+                }
             return $this->create_response(true, 'ok', $data);
 
         } catch (\Exception $e) {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Country;
 use App\Models\Rule;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,7 +18,8 @@ return new class extends Migration {
             $table->string('mobile')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignIdFor(Rule::class)->constrained();
+            $table->foreignIdFor(Country::class)->constrained();
+            $table->string('role')->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
