@@ -14,8 +14,7 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         try{
-            $user = User::where('email', $request->email)->first();
-    
+            $user = User::where('email', $request->email)->first();    
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response(['message' => 'Email or Password not correct'], 401);
         }
