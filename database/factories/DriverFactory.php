@@ -21,7 +21,7 @@ class DriverFactory extends Factory
         return [
             'name'=>fake()->name(),
             'mobile'=>fake()->phoneNumber(),
-            'driver_photo'=>fake()->imageUrl(),
+            // 'driver_photo'=>fake()->imageUrl(),
             'car_model'=>fake()->sentence(3),
             'number_of_seats'=>fake()->randomDigit(),
             'driver_rate'=>fake()->randomDigit(),

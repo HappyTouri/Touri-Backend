@@ -15,11 +15,14 @@ trait CheckRole
         }
     }   
 
-    protected function checkRoleAndUser($roles , $userId = null)
+    protected function checkRoleAndUser($roles , $country= null)
     {
         $user = auth()->user();
-        if (!$user || (!$user->hasAnyRole($roles) && (!$userId || $user->id != $userId))) {
-            throw new AuthorizationException();
+        
+        if($user->role != 'admin'){
+            if (!$user || (!$user->hasAnyRole($roles) || (!$country || $user->country_id != $country))) {
+                throw new AuthorizationException();
+            }
         }
     }   
 }

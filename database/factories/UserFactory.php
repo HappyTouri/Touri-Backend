@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
 use App\Models\Rule;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +30,8 @@ class UserFactory extends Factory
             'mobile'=>fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'password' =>  Hash::make('password'),
-            'rule_id' => Rule::all()->random()->id,
+            'role' => fake()->name(),
+            'country_id'=>Country::all()->random()->id,
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
         ];

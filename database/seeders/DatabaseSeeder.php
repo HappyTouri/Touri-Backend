@@ -57,70 +57,70 @@ class DatabaseSeeder extends Seeder
                 'type' => $type,
             ]);
         }
-         $accommodation_types= [
-            'hotel', 'apartment'
-        ];
+        //  $accommodation_types= [
+        //     'hotel', 'apartment'
+        // ];
 
-        foreach ($accommodation_types as $type) {
-            AccommodationType::factory()->create([
-                'accommodation_type' => $type,
-            ]);
-        }
-        $room_categories = [
-            'single', 'double', 'dulex', 'triple'
-        ];
+        // foreach ($accommodation_types as $type) {
+        //     AccommodationType::factory()->create([
+        //         'accommodation_type' => $type,
+        //     ]);
+        // }
+        // $room_categories = [
+        //     'single', 'double', 'dulex', 'triple'
+        // ];
 
-        foreach ($room_categories as $type) {
-            RoomCategory::factory()->create([
-                'room_category' => $type,
-            ]);
-        }
+        // foreach ($room_categories as $type) {
+        //     RoomCategory::factory()->create([
+        //         'room_category' => $type,
+        //     ]);
+        // }
         
-        ApartmentDetail::factory(20)->create();
+        // ApartmentDetail::factory(20)->create();
 
-        $tour_statuses= [
-            'reserved', 'on-going', 'canceled'
-        ];
+        // $tour_statuses= [
+        //     'reserved', 'on-going', 'canceled'
+        // ];
 
-        foreach ($tour_statuses as $type) {
-            TourStatus::factory()->create([
-                'status' => $type,
-            ]);
-        }
-        TourTitle::factory(20)->create();
+        // foreach ($tour_statuses as $type) {
+        //     TourStatus::factory()->create([
+        //         'status' => $type,
+        //     ]);
+        // }
+        // TourTitle::factory(20)->create();
 
-        $rules=['admin', 'customer', 'travelagancy','customerservice','touroperator'];
-        foreach ($rules as $rule) {
-            Rule::factory()->create([
-                'rule' => $rule,
-            ]);
-        }
+        // $rules=['admin', 'customer', 'travelagancy','customerservice','touroperator'];
+        // foreach ($rules as $rule) {
+        //     Rule::factory()->create([
+        //         'rule' => $rule,
+        //     ]);
+        // }
         City::factory(20)->create();
-        Tour::factory(20)->create();
-        TourPhoto::factory(20)->create();
+        // Tour::factory(20)->create();
+        // TourPhoto::factory(20)->create();
         Driver::factory(20)->create();
-        CarPhoto::factory(20)->create();
-        TourGuide::factory(20)->create();
-        Accommodation::factory(20)->create();
-        HotelSeason::factory(5)->create();
-        AccommodationPhoto::factory(10)->create();
-        ApartmentSeasonPrice::factory(5)->create();
+        // CarPhoto::factory(20)->create();
+        // TourGuide::factory(20)->create();
+        // Accommodation::factory(20)->create();
+        // HotelSeason::factory(5)->create();
+        // AccommodationPhoto::factory(10)->create();
+        // ApartmentSeasonPrice::factory(5)->create();
         User::factory(20)->create();
-        Offer::factory(20)->create();
+        // Offer::factory(20)->create();
        
-        PassportPhoto::factory(10)->create();
-        TourDetail::factory(10)->create();
-        HotelReservation::factory(10)->create();
-        InvoicePhoto::factory(10)->create();
-        AirTicketPhoto::factory(10)->create();
+        // PassportPhoto::factory(10)->create();
+        // TourDetail::factory(10)->create();
+        // HotelReservation::factory(10)->create();
+        // InvoicePhoto::factory(10)->create();
+        // AirTicketPhoto::factory(10)->create();
         
-        ConfirmationPhoto::factory(10)->create();
-        PaymentPhoto::factory(10)->create();
+        // ConfirmationPhoto::factory(10)->create();
+        // PaymentPhoto::factory(10)->create();
         
-        TransportationPrice::factory(10)->create();
+        // TransportationPrice::factory(10)->create();
        
-        RRoomCategory::factory(10)->create();
-        HotelPrice::factory(10)->create();
+        // RRoomCategory::factory(10)->create();
+        // HotelPrice::factory(10)->create();
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

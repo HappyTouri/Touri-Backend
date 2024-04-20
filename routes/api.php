@@ -50,11 +50,13 @@ use App\Http\Controllers\TourHeaderController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+require_once __DIR__ . '/auth.php';
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::middleware('auth:sanctum')->group(function (){
+    
 // Countries
 route::apiResource('countries', CountryController::class);
 
@@ -78,7 +80,7 @@ Route::prefix('transportation_prices')
     ->group(function () {
         Route::get('/{id}', 'index_by_country');
     });
-route::apiResource('transportation_prices', TransportationPriceController::class);
+    route::apiResource('transportation_prices', TransportationPriceController::class);
 
 // Rooms Category
 route::apiResource('room_categories', RoomCategoryController::class);
@@ -91,10 +93,10 @@ route::apiResource('tour-headers', TourHeaderController::class);
 
 //Tours
 Route::prefix('tours-by-country')
-    ->controller(TourController::class)
-    ->group(function () {
-        Route::get('/{id}', 'index_by_country');
-    });
+->controller(TourController::class)
+->group(function () {
+    Route::get('/{id}', 'index_by_country');
+});
 route::apiResource('tours', TourController::class);
 // Tours Photos
 route::apiResource('tour_photos', TourPhotoController::class);
@@ -103,7 +105,7 @@ route::apiResource('tour_photos', TourPhotoController::class);
 // Drivers
 route::apiResource('drivers', DriverController::class)->except('index');
 Route::prefix('drivers-by-country')
-    ->controller(DriverController::class)
+->controller(DriverController::class)
     ->group(function () {
         Route::get('/{countryID}', 'index_by_country');
     });
@@ -184,4 +186,4 @@ route::apiResource('hotel_reservations', HotelReservationController::class);
 route::apiResource('users', UserController::class);
 route::apiResource('r_room_categories', RRoomCategoryController::class);
 
-require_once __DIR__ . '/auth.php';
+});
