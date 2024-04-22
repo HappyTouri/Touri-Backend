@@ -28,7 +28,7 @@ class User extends Authenticatable
     {
         if ($this->role == 'admin') {
             return Offer::where('admin_seen_at', null)->get();
-        } elseif($this->role == 'operator') {
+        } elseif ($this->role == 'operator') {
             return Offer::where('operator_seen_at', null)->get();
         }
 
@@ -46,7 +46,8 @@ class User extends Authenticatable
         'name',
         'mobile',
         'email',
-        'rule_id',
+        'role',
+        'country_id',
         'password',
     ];
 
@@ -72,6 +73,8 @@ class User extends Authenticatable
     ];
     public function hasAnyRole($roles)
     {
-        return in_array($this->role, (array)$roles);
+        return in_array($this->role, (array) $roles);
     }
+
+
 }
