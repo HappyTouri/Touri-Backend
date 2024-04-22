@@ -41,6 +41,7 @@ class DriverController extends Controller
      */
     public function store(StoreDriverRequest $request)
     {
+        $this->checkRole(['admin']);
         $driver = new Driver([
             "name" => $request->name,
             "mobile" => $request->mobile,

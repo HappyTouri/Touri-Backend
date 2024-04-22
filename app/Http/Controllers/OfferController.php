@@ -30,18 +30,20 @@ class OfferController extends Controller
                 'transportation',
                 'tour_header',
             )->where('country_id', $countryID)->get();
-                if($user->role == "admin"){
-                    foreach($data as $offer){
-                        $offer->refresh();
-                        $offer['admin_seen_at'] = Carbon::now();
-                        $offer->save();
+                if($user){
+                    if($user->role == "admin"){
+                        foreach($data as $offer){
+                            $offer->refresh();
+                            $offer['admin_seen_at'] = Carbon::now();
+                            $offer->save();
+                        }
                     }
-                }
-                if($user->role == "tour_operator"){
-                    foreach($data as $offer){
-                        $offer->refresh();
-                        $offer['operator_seen_at'] = Carbon::now();
-                        $offer->save();
+                    if($user->role == "tour operator"){
+                        foreach($data as $offer){
+                            $offer->refresh();
+                            $offer['operator_seen_at'] = Carbon::now();
+                            $offer->save();
+                        }
                     }
                 }
             return $this->create_response(true, 'ok', $data);
