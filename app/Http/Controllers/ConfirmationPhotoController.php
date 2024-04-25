@@ -4,63 +4,51 @@ namespace App\Http\Controllers;
 
 use App\Models\ConfirmationPhoto;
 use App\Http\Requests\StoreConfirmationPhotoRequest;
-use App\Http\Requests\UpdateConfirmationPhotoRequest;
+use Illuminate\Support\Facades\File;
 
 class ConfirmationPhotoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreConfirmationPhotoRequest $request)
     {
-        //
+        try {
+            if ($request->hasFile("confirmation_photos")) {
+                $files = $request->file("confirmation_photos");
+                foreach ($files as $file) {
+                    $imageName = time() . '_' . $file->getClientOriginalName();
+                    $request['tour_detail_id'] = $request->id;
+                    $request['photo'] = $imageName;
+                    $file->move(\public_path("/confirmation_photos"), $imageName);
+                    ConfirmationPhoto::create($request->all());
+                }
+            }
+            $data = ConfirmationPhoto::all()->where("tour_detail_id", $request->id);
+
+            return $this->create_response(true, 'ok', $data);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 404);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ConfirmationPhoto $confirmationPhoto)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ConfirmationPhoto $confirmationPhoto)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateConfirmationPhotoRequest $request, ConfirmationPhoto $confirmationPhoto)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(ConfirmationPhoto $confirmationPhoto)
     {
-        //
+        try {
+
+            if (File::exists("confirmation_photos/" . $confirmationPhoto->photo)) {
+                File::delete("confirmation_photos/" . $confirmationPhoto->photo);
+            }
+            $confirmationPhoto->delete();
+            return $this->create_response(true, 'ok', $confirmationPhoto);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 404);
+        }
     }
 }

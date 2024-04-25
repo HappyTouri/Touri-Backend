@@ -47,4 +47,18 @@ class TourDetail extends Model
     {
         return $this->belongsTo(TourGuide::class);
     }
+
+    function Confirmation()
+    {
+        return $this->hasMany(ConfirmationPhoto::class);
+    }
+
+    function invoice()
+    {
+        return $this->hasMany(InvoicePhoto::class);
+    }
+    function payment()
+    {
+        return $this->hasMany(PaymentPhoto::class);
+    }
 }

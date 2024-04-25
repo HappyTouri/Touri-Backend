@@ -30,22 +30,22 @@ class OfferController extends Controller
                 'transportation',
                 'tour_header',
             )->where('country_id', $countryID)->get();
-                if($user){
-                    if($user->role == "admin"){
-                        foreach($data as $offer){
-                            $offer->refresh();
-                            $offer['admin_seen_at'] = Carbon::now();
-                            $offer->save();
-                        }
-                    }
-                    if($user->role == "tour operator"){
-                        foreach($data as $offer){
-                            $offer->refresh();
-                            $offer['operator_seen_at'] = Carbon::now();
-                            $offer->save();
-                        }
+            if ($user) {
+                if ($user->role == "admin") {
+                    foreach ($data as $offer) {
+                        $offer->refresh();
+                        $offer['admin_seen_at'] = Carbon::now();
+                        $offer->save();
                     }
                 }
+                if ($user->role == "tour operator") {
+                    foreach ($data as $offer) {
+                        $offer->refresh();
+                        $offer['operator_seen_at'] = Carbon::now();
+                        $offer->save();
+                    }
+                }
+            }
             return $this->create_response(true, 'ok', $data);
 
         } catch (\Exception $e) {
@@ -146,6 +146,9 @@ class OfferController extends Controller
                 'tour_details.tour.city',
                 'tour_details.accommodation.city',
                 'tour_details.accommodation.accommodation_type',
+                'tour_details.confirmation',
+                'tour_details.invoice',
+                'tour_details.payment',
                 'country',
                 'transportation',
                 'tour_header',
@@ -183,7 +186,7 @@ class OfferController extends Controller
         try {
             // Update Offer attributes from the request
             $offer->update([
-                "operator_id" => $request->operator_id,
+                // "operator_id" => $request->operator_id,
                 "country_id" => $request->country_id,
                 "website_share" => $request->website_share,
                 "tour_title" => $request->tour_name,
@@ -250,7 +253,7 @@ class OfferController extends Controller
             $offer = Offer::findOrFail($id);
 
             $offer->update([
-                "operator_id" => $request->operator_id,
+                // "operator_id" => $request->operator_id,
                 "customer_id" => $request->customer_id,
                 "number_of_people" => $request->number_of_people,
                 "note" => $request->note,

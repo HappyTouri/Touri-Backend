@@ -55,135 +55,136 @@ require_once __DIR__ . '/auth.php';
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::middleware('auth:sanctum')->group(function (){
-    
-// Countries
-route::apiResource('countries', CountryController::class);
+Route::middleware('auth:sanctum')->group(function () {
 
-// Cities
-Route::prefix('cities')
-    ->controller(CityController::class)
-    ->group(function () {
-        Route::get('/{id}', 'index_by_country');
-    });
-route::apiResource('cities', CityController::class);
+    // Countries
+    route::apiResource('countries', CountryController::class);
 
-// Transportation Types
-route::apiResource('transportations', TransportationController::class);
+    // Cities
+    Route::prefix('cities')
+        ->controller(CityController::class)
+        ->group(function () {
+            Route::get('/{id}', 'index_by_country');
+        });
+    route::apiResource('cities', CityController::class);
 
-// Accommodation Types
-route::apiResource('accommodation_types', AccommodationTypeController::class);
+    // Transportation Types
+    route::apiResource('transportations', TransportationController::class);
 
-// Transportation Prices
-Route::prefix('transportation_prices')
-    ->controller(TransportationPriceController::class)
-    ->group(function () {
-        Route::get('/{id}', 'index_by_country');
-    });
+    // Accommodation Types
+    route::apiResource('accommodation_types', AccommodationTypeController::class);
+
+    // Transportation Prices
+    Route::prefix('transportation_prices')
+        ->controller(TransportationPriceController::class)
+        ->group(function () {
+            Route::get('/{id}', 'index_by_country');
+        });
     route::apiResource('transportation_prices', TransportationPriceController::class);
 
-// Rooms Category
-route::apiResource('room_categories', RoomCategoryController::class);
+    // Rooms Category
+    route::apiResource('room_categories', RoomCategoryController::class);
 
-// Tour Titles
-route::apiResource('tour_titles', TourTitleController::class);
+    // Tour Titles
+    route::apiResource('tour_titles', TourTitleController::class);
 
-// Tour Headers
-route::apiResource('tour-headers', TourHeaderController::class);
+    // Tour Headers
+    route::apiResource('tour-headers', TourHeaderController::class);
 
-//Tours
-Route::prefix('tours-by-country')
-->controller(TourController::class)
-->group(function () {
-    Route::get('/{id}', 'index_by_country');
-});
-route::apiResource('tours', TourController::class);
-// Tours Photos
-route::apiResource('tour_photos', TourPhotoController::class);
-
-
-// Drivers
-route::apiResource('drivers', DriverController::class)->except('index');
-Route::prefix('drivers-by-country')
-->controller(DriverController::class)
-    ->group(function () {
-        Route::get('/{countryID}', 'index_by_country');
-    });
-// Car photos
-route::apiResource('car_photos', CarPhotoController::class);
-// Driver photos
-route::apiResource('driver_photo', DriverPhotoController::class);
-
-// Accommodation 
-Route::prefix('accommodation-by-country')
-    ->controller(AccommodationController::class)
-    ->group(function () {
-        Route::get('/{id}', 'index_by_country');
-    });
-Route::prefix('edit-accommodations')
-    ->controller(AccommodationController::class)
-    ->group(function () {
-        Route::post('/{id}', 'updateAccommodation');
-    });
-Route::prefix('share-accommodations')
-    ->controller(AccommodationController::class)
-    ->group(function () {
-        Route::post('/{id}', 'share');
-    });
-route::apiResource('accommodations', AccommodationController::class);
-
-route::apiResource('accommodation_photos', AccommodationPhotoController::class);
-
-// hotel room Categories
-route::apiResource('hotel_room_categories', HotelRoomCategoriesController::class);
-
-// Hotel Prices
-route::apiResource('hotel_prices', HotelPriceController::class);
+    //Tours
+    Route::prefix('tours-by-country')
+        ->controller(TourController::class)
+        ->group(function () {
+            Route::get('/{id}', 'index_by_country');
+        });
+    route::apiResource('tours', TourController::class);
+    // Tours Photos
+    route::apiResource('tour_photos', TourPhotoController::class);
 
 
-// Tour Status
-route::apiResource('tour_statuses', TourStatusController::class);
+    // Drivers
+    route::apiResource('drivers', DriverController::class)->except('index');
+    Route::prefix('drivers-by-country')
+        ->controller(DriverController::class)
+        ->group(function () {
+            Route::get('/{countryID}', 'index_by_country');
+        });
+    // Car photos
+    route::apiResource('car_photos', CarPhotoController::class);
+    // Driver photos
+    route::apiResource('driver_photo', DriverPhotoController::class);
 
-// Tour Status
-route::apiResource('tourguide_price', TourguidePriceController::class);
+    // Accommodation 
+    Route::prefix('accommodation-by-country')
+        ->controller(AccommodationController::class)
+        ->group(function () {
+            Route::get('/{id}', 'index_by_country');
+        });
+    Route::prefix('edit-accommodations')
+        ->controller(AccommodationController::class)
+        ->group(function () {
+            Route::post('/{id}', 'updateAccommodation');
+        });
+    Route::prefix('share-accommodations')
+        ->controller(AccommodationController::class)
+        ->group(function () {
+            Route::post('/{id}', 'share');
+        });
+    route::apiResource('accommodations', AccommodationController::class);
 
-// Apartment Season Prices
-route::apiResource('apartment_season_prices', ApartmentSeasonPriceController::class);
+    route::apiResource('accommodation_photos', AccommodationPhotoController::class);
 
-//Offers and Reservations
-Route::prefix('reserve')
-    ->controller(OfferController::class)
-    ->group(function () {
-        Route::put('/{id}', 'reserve');
-    });
-Route::prefix('all-offers')
-    ->controller(OfferController::class)
-    ->group(function () {
-        Route::get('/{id}', 'index_by_country');
-    });
-route::apiResource('offers', OfferController::class);
-route::apiResource('users', UserController::class);
-//passport photos
-route::apiResource('passport_photos', PassportPhotoController::class);
-//air tickets
-route::apiResource('air_ticket_photos', AirTicketPhotoController::class);
+    // hotel room Categories
+    route::apiResource('hotel_room_categories', HotelRoomCategoriesController::class);
+
+    // Hotel Prices
+    route::apiResource('hotel_prices', HotelPriceController::class);
 
 
+    // Tour Status
+    route::apiResource('tour_statuses', TourStatusController::class);
 
-route::apiResource('apartment_details', ApartmentDetailController::class);
-route::apiResource('rules', RuleController::class);
-route::apiResource('tour_guides', TourGuideController::class);
-route::apiResource('hotel_seasons', HotelSeasonController::class);
-route::apiResource('offer_seens', OfferSeenController::class);
-route::apiResource('reservations', ReservationController::class);
+    // Tour Status
+    route::apiResource('tourguide_price', TourguidePriceController::class);
 
-route::apiResource('invoice_photos', InvoicePhotoController::class);
+    // Apartment Season Prices
+    route::apiResource('apartment_season_prices', ApartmentSeasonPriceController::class);
 
-route::apiResource('tour_details', TourDetailController::class);
-route::apiResource('confirmation_photos', ConfirmationPhotoController::class);
-route::apiResource('payment_photos', PaymentPhotoController::class);
-route::apiResource('hotel_reservations', HotelReservationController::class);
-route::apiResource('users', UserController::class);
-route::apiResource('r_room_categories', RRoomCategoryController::class);
+    //Offers and Reservations
+    Route::prefix('reserve')
+        ->controller(OfferController::class)
+        ->group(function () {
+            Route::put('/{id}', 'reserve');
+        });
+    Route::prefix('all-offers')
+        ->controller(OfferController::class)
+        ->group(function () {
+            Route::get('/{id}', 'index_by_country');
+        });
+    route::apiResource('offers', OfferController::class);
+    route::apiResource('users', UserController::class);
+    //passport photos
+    route::apiResource('passport_photos', PassportPhotoController::class);
+    //air tickets
+    route::apiResource('air_ticket_photos', AirTicketPhotoController::class);
+
+
+    //confirmation & invoice & payment  Photos
+    route::apiResource('confirmation_photos', ConfirmationPhotoController::class);
+    route::apiResource('invoice_photos', InvoicePhotoController::class);
+    route::apiResource('payment_photos', PaymentPhotoController::class);
+
+
+
+    route::apiResource('apartment_details', ApartmentDetailController::class);
+    route::apiResource('rules', RuleController::class);
+    route::apiResource('tour_guides', TourGuideController::class);
+    route::apiResource('hotel_seasons', HotelSeasonController::class);
+    route::apiResource('offer_seens', OfferSeenController::class);
+    route::apiResource('reservations', ReservationController::class);
+    route::apiResource('tour_details', TourDetailController::class);
+    route::apiResource('hotel_reservations', HotelReservationController::class);
+    route::apiResource('users', UserController::class);
+    route::apiResource('r_room_categories', RRoomCategoryController::class);
 
 });

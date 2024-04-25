@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentPhoto extends Model
 {
     use HasFactory;
-    function hotels_reservation(){
+
+    protected $fillable = [
+        'tour_detail_id',
+        'photo',
+    ];
+    function hotels_reservation()
+    {
         return $this->belongsTo(HotelReservation::class);
     }
 }

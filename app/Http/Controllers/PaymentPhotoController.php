@@ -4,63 +4,49 @@ namespace App\Http\Controllers;
 
 use App\Models\PaymentPhoto;
 use App\Http\Requests\StorePaymentPhotoRequest;
-use App\Http\Requests\UpdatePaymentPhotoRequest;
+use Illuminate\Support\Facades\File;
 
 class PaymentPhotoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StorePaymentPhotoRequest $request)
     {
-        //
+        try {
+            if ($request->hasFile("payment_photos")) {
+                $files = $request->file("payment_photos");
+                foreach ($files as $file) {
+                    $imageName = time() . '_' . $file->getClientOriginalName();
+                    $request['tour_detail_id'] = $request->id;
+                    $request['photo'] = $imageName;
+                    $file->move(\public_path("/payment_photos"), $imageName);
+                    PaymentPhoto::create($request->all());
+                }
+            }
+            $data = PaymentPhoto::all()->where("tour_detail_id", $request->id);
+
+            return $this->create_response(true, 'ok', $data);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 404);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(PaymentPhoto $paymentPhoto)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PaymentPhoto $paymentPhoto)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePaymentPhotoRequest $request, PaymentPhoto $paymentPhoto)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(PaymentPhoto $paymentPhoto)
     {
-        //
+        try {
+            if (File::exists("payment_photos/" . $paymentPhoto->photo)) {
+                File::delete("payment_photos/" . $paymentPhoto->photo);
+            }
+            $paymentPhoto->delete();
+            return $this->create_response(true, 'ok', $paymentPhoto);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 404);
+        }
     }
 }
