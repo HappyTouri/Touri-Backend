@@ -34,6 +34,7 @@ use App\Http\Controllers\TourTitleController;
 use App\Http\Controllers\TransportationController;
 use App\Http\Controllers\TransportationPriceController;
 use App\Http\Controllers\DriverPhotoController;
+use App\Http\Controllers\SendController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -56,7 +57,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::middleware('auth:sanctum')->group(function () {
-
+//send email
+Route::get('send',[SendController::class,'send']);
     // Countries
     route::apiResource('countries', CountryController::class);
 
@@ -161,7 +163,7 @@ Route::middleware('auth:sanctum')->group(function () {
         ->group(function () {
             Route::get('/{id}', 'index_by_country');
         });
-    route::apiResource('offers', OfferController::class);
+    route::apiResource('offers', OfferController::class)->except('show');
     route::apiResource('users', UserController::class);
     //passport photos
     route::apiResource('passport_photos', PassportPhotoController::class);
@@ -188,3 +190,4 @@ Route::middleware('auth:sanctum')->group(function () {
     route::apiResource('r_room_categories', RRoomCategoryController::class);
 
 });
+route::get('offers',[ OfferController::class,'show']);  
