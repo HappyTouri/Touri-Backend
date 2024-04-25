@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use App\Models\Offer;
 use App\Models\TourDetail;
 use App\Models\RRoomCategory;
@@ -272,7 +274,68 @@ class OfferController extends Controller
         }
     }
 
+    public function sendEmail(Request $request)
+    {
+        // return $request;
+        try {
 
+            $tours = TourDetail::whereBetween('date', [$request->date, $request->till])
+                ->where('accommodation_id', $request->accommodation_id)
+                ->where('offer_id', $request->offer_id);
+
+            // dd($tours);
+
+            // dd($tour);
+            foreach ($tours as $item) {
+                $item->status = "Email Sent";
+                $item->email_note = $request->note;
+                $item->save();
+            }
+
+            return 'done';
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    public function cancelEmail(Request $request)
+    {
+        try {
+
+            $tours = TourDetail::whereBetween('date', [$request->date, $request->till])
+                ->where('accommodation_id', $request->id)
+                ->where('offer_id', $request->offer_id)
+                ->paginate(10);
+            // dd($tours);
+
+            // dd($tour);
+            foreach ($tours as $item) {
+                $item->status = "Reserve Canceled";
+                $item->save();
+            }
+
+            return 'done';
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    public function confirmOrDone(Request $request, TourDetail $tourDetail)
+    {
+        try {
+            if ($request->payment_price) {
+                $tourDetail->update([
+                    'status' => 'Done'
+                ]);
+            }
+            if ($request->invoice_price) {
+                $tourDetail->update([
+                    'status' => 'Reserve Confirmed'
+                ]);
+            }
+            return 'done';
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
     /**
      * Remove the specified resource from storage.
      */

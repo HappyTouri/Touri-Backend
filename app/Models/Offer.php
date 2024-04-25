@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Offer extends Model
 {
     use HasFactory;
-
+    protected $appends = ['Status'];
     protected $fillable = [
         'operator_id',
         'country_id',
@@ -30,20 +30,35 @@ class Offer extends Model
         'driver_id',
         'tourguide_id',
         'customer_id',
-
-
-
-
-
-
-
-
     ];
+
+
     function tour_details()
     {
         return $this->hasMany(TourDetail::class);
     }
+    public function getStatusAttribute()
+    {
+        $tourDetails = $this->tour_details;
 
+        // Loop through each TourDetail record
+        foreach ($tourDetails as $tourDetail) {
+            // Check the status of the current TourDetail record
+            if ($tourDetail->status == 'Email Sent' || $tourDetail->status == 'Confirmed' || $tourDetail->status == 'Done') {
+                // Continue checking other records
+                return 1;
+            } else if ($tourDetail->status == 'Confirmed' || $tourDetail->status == 'Done') {
+                // Return 2 if a record has a status of "Confirmed"
+                return 2;
+            } else if ($tourDetail->status == 'Done') {
+                // Return 3 if a record has a status of "Done"
+                return 3;
+            } else {
+                // Return 0 if a record has any other status
+                return 0;
+            }
+        }
+    }
 
     function passports()
     {

@@ -186,5 +186,7 @@ Route::middleware('auth:sanctum')->group(function () {
     route::apiResource('hotel_reservations', HotelReservationController::class);
     route::apiResource('users', UserController::class);
     route::apiResource('r_room_categories', RRoomCategoryController::class);
-
+    route::put('send-email', [OfferController::class, 'sendEmail']);
+    route::put('cancel-email', [OfferController::class, 'cancelEmail']);
+    route::put('change-pay-or-invoicement/{offer}', [OfferController::class, 'confirmOrDone']);
 });
