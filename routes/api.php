@@ -59,6 +59,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
 //send email
 Route::get('send',[SendController::class,'send']);
+//cancel email
+Route::get('cancel',[SendController::class,'cancel']);
     // Countries
     route::apiResource('countries', CountryController::class);
 
