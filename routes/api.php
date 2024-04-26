@@ -57,10 +57,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::middleware('auth:sanctum')->group(function () {
-//send email
-Route::get('send',[SendController::class,'send']);
-//cancel email
-Route::get('cancel',[SendController::class,'cancel']);
+    //send email
+    Route::get('send', [SendController::class, 'send']);
+    //cancel email
+    Route::get('cancel', [SendController::class, 'cancel']);
     // Countries
     route::apiResource('countries', CountryController::class);
 
@@ -194,4 +194,4 @@ Route::get('cancel',[SendController::class,'cancel']);
     route::put('cancel-email', [OfferController::class, 'cancelEmail']);
     route::put('change-pay-or-invoicement/{offer}', [OfferController::class, 'confirmOrDone']);
 });
-route::get('offers',[ OfferController::class,'show']);  
+route::get('offers/{offer}', [OfferController::class, 'show']);
