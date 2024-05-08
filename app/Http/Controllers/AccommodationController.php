@@ -8,6 +8,7 @@ use App\Models\ApartmentDetail;
 use App\Http\Requests\StoreAccommodationRequest;
 use App\Http\Requests\UpdateAccommodationRequest;
 use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
 
 
 class AccommodationController extends Controller
@@ -53,10 +54,12 @@ class AccommodationController extends Controller
     }
 
 
-    public function share(UpdateAccommodationRequest $request, $id)
+    public function share(Request $request, $id)
     {
+
+        // return $request->share;
         try {
-            $data = $request[0];
+            $data = $request->share;
             $accommodation = Accommodation::findOrFail($id);
             $accommodation->update([
                 'share' => $data,
@@ -105,6 +108,8 @@ class AccommodationController extends Controller
                     'video_link' => $request->video_link,
                     'city_id' => $request->city_id,
                     'accommodation_type_id' => $request->accommodation_type_id,
+                    'hotel_website' => $request->hotel_website
+
                 ]);
 
                 $data->save();
@@ -199,12 +204,12 @@ class AccommodationController extends Controller
                 'address' => $request->address,
                 'email' => $request->email,
                 'price_list_PDF' => "$imagePriceList",
-                'share' => 0,
                 'note' => $request->note,
                 'cover_photo' => $imageCover,
                 'video_link' => $request->video_link,
                 'city_id' => $request->city_id,
                 'accommodation_type_id' => $request->accommodation_type_id,
+                'hotel_website' => $request->hotel_website
             ]);
 
 

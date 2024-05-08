@@ -65,11 +65,6 @@ Route::middleware('auth:sanctum')->group(function () {
     route::apiResource('countries', CountryController::class);
 
     // Cities
-    Route::prefix('cities')
-        ->controller(CityController::class)
-        ->group(function () {
-            Route::get('/{id}', 'index_by_country');
-        });
     route::apiResource('cities', CityController::class);
 
     // Transportation Types
@@ -89,8 +84,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Rooms Category
     route::apiResource('room_categories', RoomCategoryController::class);
 
-    // Tour Titles
-    route::apiResource('tour_titles', TourTitleController::class);
+
 
     // Tour Headers
     route::apiResource('tour-headers', TourHeaderController::class);
@@ -119,11 +113,7 @@ Route::middleware('auth:sanctum')->group(function () {
     route::apiResource('driver_photo', DriverPhotoController::class);
 
     // Accommodation 
-    Route::prefix('accommodation-by-country')
-        ->controller(AccommodationController::class)
-        ->group(function () {
-            Route::get('/{id}', 'index_by_country');
-        });
+
     Route::prefix('edit-accommodations')
         ->controller(AccommodationController::class)
         ->group(function () {
@@ -134,7 +124,7 @@ Route::middleware('auth:sanctum')->group(function () {
         ->group(function () {
             Route::post('/{id}', 'share');
         });
-    route::apiResource('accommodations', AccommodationController::class);
+    route::apiResource('accommodations', AccommodationController::class)->except('show');
 
     route::apiResource('accommodation_photos', AccommodationPhotoController::class);
 
@@ -195,3 +185,21 @@ Route::middleware('auth:sanctum')->group(function () {
     route::put('change-pay-or-invoicement/{offer}', [OfferController::class, 'confirmOrDone']);
 });
 route::get('offers/{offer}', [OfferController::class, 'show']);
+
+route::get('accommodations/{accommodation}', [AccommodationController::class, 'show']);
+// Tour Titles
+route::apiResource('tour_titles', TourTitleController::class);
+
+// accommodation By country
+Route::prefix('accommodation-by-country')
+    ->controller(AccommodationController::class)
+    ->group(function () {
+        Route::get('/{id}', 'index_by_country');
+    });
+
+// Cities by country 
+Route::prefix('cities')
+    ->controller(CityController::class)
+    ->group(function () {
+        Route::get('/{id}', 'index_by_country');
+    });

@@ -21,6 +21,7 @@ class Accommodation extends Model
         'video_link',
         'city_id',
         'accommodation_type_id',
+        'hotel_website',
     ];
     function accommodation_photos()
     {
