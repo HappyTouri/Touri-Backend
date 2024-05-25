@@ -8,6 +8,13 @@ use App\Models\Offer;
 use App\Models\TourDetail;
 use App\Models\RRoomCategory;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EmalMailable;
+use App\Mail\CancelMailable;
+
+
+
+
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
 use Carbon\Carbon;
@@ -59,17 +66,8 @@ class OfferController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(StoreOfferRequest $request)
     {
         try {
@@ -136,9 +134,6 @@ class OfferController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Offer $offer)
     {
         try {
@@ -172,17 +167,7 @@ class OfferController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Offer $offer)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateOfferRequest $request, Offer $offer)
     {
         try {
@@ -276,46 +261,52 @@ class OfferController extends Controller
 
     public function sendEmail(Request $request)
     {
-        // return $request;
         try {
+            // Try sending the email
 
+            Mail::to("tbilisitraveler@gmail.com")->send(new EmalMailable($request));
+
+
+            // Fetch the tours using the correct query
             $tours = TourDetail::whereBetween('date', [$request->date, $request->till])
                 ->where('accommodation_id', $request->accommodation_id)
-                ->where('offer_id', $request->offer_id);
+                ->where('offer_id', $request->offer_id)
+                ->get(); // Execute the query
 
-            // dd($tours);
-
-            // dd($tour);
+            // Update each tour detail
             foreach ($tours as $item) {
-                $item->status = "Email Sent";
-                $item->email_note = $request->note;
+                $item->status = "Email Sent"; // Update status to "Email Sent"
+                $item->email_note = $request->email_note;
                 $item->save();
             }
-
-            return 'done';
+            return $request;
+            // return response()->json(['message' => 'Email sent and note updated successfully'], 200);
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+
     public function cancelEmail(Request $request)
     {
         try {
-
+            // Mail::to("tbilisitraveler@gmail.com")->send(new EmalMailable($request));
+            // Fetch the tours using the correct query
             $tours = TourDetail::whereBetween('date', [$request->date, $request->till])
-                ->where('accommodation_id', $request->id)
+                ->where('accommodation_id', $request->accommodation_id)
                 ->where('offer_id', $request->offer_id)
-                ->paginate(10);
-            // dd($tours);
+                ->get(); // Execute the query
 
-            // dd($tour);
+            // Update each tour detail
             foreach ($tours as $item) {
-                $item->status = "Reserve Canceled";
+                $item->status = "Canceled Email";
+                $item->email_note = $request->email_note;
                 $item->save();
             }
-
-            return 'done';
+            // return $request;
+            return response()->json(['message' => 'Email sent and note updated successfully'], 200);
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
     public function confirmOrDone(Request $request, TourDetail $tourDetail)

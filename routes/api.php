@@ -57,10 +57,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::middleware('auth:sanctum')->group(function () {
-    //send email
-    Route::get('send', [SendController::class, 'send']);
-    //cancel email
-    Route::get('cancel', [SendController::class, 'cancel']);
+    // //send email
+    // Route::put('send-email', [SendController::class, 'send']);
+    // //cancel email
+    // Route::put('cancel-email', [SendController::class, 'cancel']);
+
+
     // Countries
     route::apiResource('countries', CountryController::class);
 
@@ -184,6 +186,12 @@ Route::middleware('auth:sanctum')->group(function () {
     route::put('cancel-email', [OfferController::class, 'cancelEmail']);
     route::put('change-pay-or-invoicement/{offer}', [OfferController::class, 'confirmOrDone']);
 });
+
+
+
+
+
+// no middle ware
 route::get('offers/{offer}', [OfferController::class, 'show']);
 
 route::get('accommodations/{accommodation}', [AccommodationController::class, 'show']);
@@ -198,7 +206,7 @@ Route::prefix('accommodation-by-country')
     });
 
 // Cities by country 
-Route::prefix('cities')
+Route::prefix('cities-by-country')
     ->controller(CityController::class)
     ->group(function () {
         Route::get('/{id}', 'index_by_country');
